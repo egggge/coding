@@ -5,6 +5,7 @@ import java.util.Stack;
  * @Date: 2019-05-05 10:29
  */
 public class StackandQue {
+    //尝试用抽象类来完成
     class stackToQue {
         public Stack<Integer> stack1 = new Stack();
         public Stack<Integer> stack2 = new Stack();
@@ -27,6 +28,7 @@ public class StackandQue {
             return stack2.peek();
         }
     }
+
     public static void main(String[] args){
         StackandQue stackandQue = new StackandQue();
         StackandQue.stackToQue stackToQue = stackandQue.new stackToQue();
