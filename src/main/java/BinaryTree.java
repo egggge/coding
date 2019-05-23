@@ -221,6 +221,12 @@ public class BinaryTree<E extends Number> {
 
         }
     }
+
+    /**
+     * 在二叉树中找到值为m的路径
+     * @param root
+     * @param k
+     */
     public void findPath(TreeNode<E> root,int k){
         if(root == null){
             return;
@@ -248,6 +254,40 @@ public class BinaryTree<E extends Number> {
         }
     }
 
+    public TreeNode<E> convert(TreeNode<E> root){
+        TreeNode<E> pLastNodeList = null;
+        convertNode(root,pLastNodeList);
+
+        TreeNode<E> pHeadOfList = pLastNodeList;
+        while (pHeadOfList!=null&&pHeadOfList.lchild!=null){
+            pHeadOfList=pHeadOfList.lchild;
+        }
+        return pHeadOfList;
+
+    }
+
+    /**
+     *
+     * @param pNode
+     * @param pLastNodeInList 双向链表的尾节点
+     */
+    public void convertNode(TreeNode<E> pNode,TreeNode<E> pLastNodeInList){
+        if (pNode==null){
+            return;
+        }
+        TreeNode<E> pCurrent = pNode;
+        if (pCurrent.getLchild()!=null){
+            convertNode(pCurrent.getLchild(),pLastNodeInList);
+        }
+        pCurrent.lchild=pLastNodeInList;
+        if (pLastNodeInList!=null){
+            pLastNodeInList.rchild=pCurrent;
+        }
+        pLastNodeInList=pCurrent;
+        if (pCurrent.rchild!=null){
+            convertNode(pCurrent.rchild,pLastNodeInList);
+        }
+    }
 
 
 
@@ -262,7 +302,8 @@ public class BinaryTree<E extends Number> {
        // bt.LNR(root);
         //bt.nonRecInOrder(root);
         //bt.levelOrder(root);
-        bt.findPath(root,22);
+        //bt.findPath(root,22);
+        bt.convert(root);
 
     }
 
