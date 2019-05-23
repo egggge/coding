@@ -1,13 +1,12 @@
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-import java.util.Stack;
+import org.omg.PortableInterceptor.INACTIVE;
+
+import java.util.*;
 
 /**
  * @Author: egg
  * @Date: 2019-04-21 11:03
  */
-public class BinaryTree<E> {
+public class BinaryTree<E extends Number> {
     class TreeNode<E> {
         private E data;
         private TreeNode<E> rchild;
@@ -220,22 +219,50 @@ public class BinaryTree<E> {
                 queue.offer(nodetemp.getRchild());
             }
 
-            }
-
-
-
-
-
+        }
     }
+    public void findPath(TreeNode<E> root,int k){
+        if(root == null){
+            return;
+        }
+        Stack<Integer> stack = new Stack<Integer>();
+        findPath(root,k,stack);
+    }
+    public void findPath(TreeNode<E> root,int k,Stack<Integer> path){
+        if(root == null){return;}
+        //深度遍历
+        if(root.getLchild() == null && root.getRchild() == null){
+            if(root.data.intValue() == k){
+                System.out.println("路径开始");
+                for(int i :path){
+                    System.out.print(i+",");
+                }
+                System.out.print(root.data.intValue());
+            }
+        }
+        else{
+            path.push(root.data.intValue());
+            findPath(root.getLchild(),k-root.data.intValue(),path);
+            findPath(root.getRchild(),k-root.data.intValue(),path);
+            path.pop();
+        }
+    }
+
+
+
+
+
+
     public static void main(String[] args){
-        Object[] array = {1,2,3,4,5,6,7,8};
+        Integer[] array = {10,5,12,4,7};
         BinaryTree bt = new BinaryTree();
         BinaryTree.TreeNode root = bt.buildTree(array);
 //        System.out.print("树的高度：");
 //        System.out.println(bt.getHigh(root));
-        //bt.LNR(root);
+       // bt.LNR(root);
         //bt.nonRecInOrder(root);
-        bt.levelOrder(root);
+        //bt.levelOrder(root);
+        bt.findPath(root,22);
 
     }
 
