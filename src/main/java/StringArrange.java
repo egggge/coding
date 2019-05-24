@@ -46,6 +46,13 @@ public class StringArrange {
         }
 
     }
+    //交换数组m位置和n位置上的值
+    public void swap(char[] arrayA,int m,int n){
+        char temp = arrayA[m];
+        arrayA[m] = arrayA[n];
+        arrayA[n] = temp;
+    }
+
 
     /**
      * 回溯法
@@ -71,11 +78,38 @@ public class StringArrange {
             }
         }
     }
-    //交换数组m位置和n位置上的值
-    public void swap(char[] arrayA,int m,int n){
-        char temp = arrayA[m];
-        arrayA[m] = arrayA[n];
-        arrayA[n] = temp;
+
+    /**
+     * 字符串的组合
+     * @param chs
+     */
+
+    public static void combiantion(char chs[]){
+        if(chs==null||chs.length==0){
+            return ;
+        }
+        List<Character> list=new ArrayList();
+        for(int i=1;i<=chs.length;i++){
+            combine(chs,0,i,list);
+        }
+    }
+
+//从字符数组中第begin个字符开始挑选number个字符加入list中
+
+    public static void combine(char []cs,int begin,int number,List<Character> list){
+        if(number==0){
+            System.out.println(list.toString());
+            return ;
+        }
+        if(begin==cs.length){
+            return;
+        }
+        //第一种是加入第一个字符，再选择number-1
+        list.add(cs[begin]);
+        combine(cs,begin+1,number-1,list);
+        //第二种不要第一个字符，直接选择number个字符
+        list.remove((Character)cs[begin]);
+        combine(cs,begin+1,number,list);
     }
 
     public static void main(String[] args) {
@@ -85,9 +119,9 @@ public class StringArrange {
         char[] arrayA = A.toCharArray();
         char[] arrayB = B.toCharArray();
         int[] ints ={1,2,3};
-        //stringArrange.recursionArrange(arrayA,0,arrayA.length-1);
+        stringArrange.recursionArrange(arrayA,0,arrayA.length-1);
         //stringArrange.permutateSequence(arrayB,0);
-        stringArrange.permute(ints);
+        //stringArrange.permute(ints);
 
     }
 }
