@@ -7,6 +7,7 @@ import java.util.*;
  * @Date: 2019-04-21 11:03
  */
 public class BinaryTree<E extends Number> {
+    private boolean finished=false;
     class TreeNode<E> {
         private E data;
         private TreeNode<E> rchild;
@@ -83,6 +84,7 @@ public class BinaryTree<E extends Number> {
         //左孩子：2*j+1
         //右孩子：2*j+2
         //注意j的取值
+        //节点从1开始计算
         for (int j=0;j<(array.length/2-1);j++){
             nodeList.get(j).setLchild(nodeList.get(2*j+1));
             nodeList.get(j).setRchild(nodeList.get(2*j+2));
@@ -289,9 +291,54 @@ public class BinaryTree<E extends Number> {
         }
     }
 
+    /**
+     * 堆排序
+     * 1.构造大顶堆
+     * 2.交换元素，再构造大顶堆
+     * @param arr
+     */
 
+    public static void sort(int []arr){
+        //1.构建大顶堆
+        for(int i=arr.length/2-1;i>=0;i--){
+            adjustHeap(arr,i,arr.length);
+        }
+        //2.调整堆结构+交换堆顶元素与末尾元素
+        for(int j=arr.length-1;j>0;j--){
+            //将堆顶元素与末尾元素进行交换
+            swap(arr,0,j);
+            //重新对堆进行调整
+            adjustHeap(arr,0,j);
+        }
 
-
+    }
+    public static void adjustHeap(int []arr,int i,int length){
+        //先取出当前元素i
+        int temp = arr[i];
+        //从i结点的左子结点开始，也就是2i+1处开始
+        //k代表每个非叶子节点的左节点
+        for(int k=i*2+1;k<length;k=k*2+1){
+            //不是用根节点与左右子节点比较，而是左右子节点先比较，选出最大
+            if(k+1<length && arr[k]<arr[k+1]){
+                k++;
+            }
+            //如果子节点大于父节点，将子节点值赋给父节点（不用进行交换）
+            if(arr[k] >temp){
+                arr[i] = arr[k];
+                //因为k不一定到了最后一个节点
+                i = k;
+            }else{
+                break;
+            }
+        }
+        //将temp值放到最终的位置
+        arr[i] = temp;
+    }
+    public static void swap(int []arr,int a ,int b){
+        int temp=arr[a];
+        arr[a] = arr[b];
+        arr[b] = temp;
+    }
 
     public static void main(String[] args){
         Integer[] array = {10,5,12,4,7};
