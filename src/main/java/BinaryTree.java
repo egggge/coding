@@ -1,4 +1,3 @@
-import org.omg.PortableInterceptor.INACTIVE;
 
 import java.util.*;
 
@@ -338,6 +337,44 @@ public class BinaryTree<E extends Number> {
         int temp=arr[a];
         arr[a] = arr[b];
         arr[b] = temp;
+    }
+
+    /**
+     * 根据前序和中序遍历重构二叉树
+     * @param pre
+     * @param in
+     * @return
+     */
+    public  TreeNode<E> reBuild(int[] pre,int[] in){
+        TreeNode root=reBuild(pre,0,pre.length-1,in,0,in.length-1);
+        return root;
+
+    }
+
+    /**
+     * 递归生成二叉树的逐个左右子树的根节点
+     * @param pre
+     * @param startPre
+     * @param endPre
+     * @param in
+     * @param startIn
+     * @param endIn
+     * @return
+     */
+    public  TreeNode<E> reBuild(int[] pre,int startPre,int endPre,int[] in,int startIn,int endIn){
+        if (startPre>endPre||startIn>endIn){
+            return null;
+        }
+        TreeNode root=new TreeNode(pre[startPre]);
+        for (int i=startIn;i<=endIn;i++){
+            if (in[i]==pre[startPre]){
+                root.lchild=reBuild(pre,startPre+1,startPre+i-startIn,in,startIn,i-1);
+                root.rchild=reBuild(pre,i-startIn+startPre+1,endPre,in,i+1,endIn);
+                break;
+            }
+        }
+        return root;
+
     }
 
     public static void main(String[] args){
