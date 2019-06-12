@@ -1,10 +1,25 @@
 import java.util.Arrays;
+import java.util.Stack;
 
 /**
  * @Author: egg
  * @Date: 2019-05-15 10:41
  */
 public class LinkedOp {
+    /**
+     * 从尾打印链表
+     * @param head
+     */
+    public void printFromTail(ListNode head){
+        Stack<Integer> stack = new Stack<Integer>();
+        while (head!=null){
+            stack.push(head.val);
+        }
+        while (!stack.empty()){
+            System.out.println(stack.pop());
+        }
+
+    }
     private static void delectNode(ListNode head,ListNode delnode){
         if (head==null||delnode==null){
             return;
@@ -38,6 +53,7 @@ public class LinkedOp {
     }
 
     /**
+     * 合并两个有序链表
      * 1.链表为空
      * 2。链表只有一个元素，当最后一个元素处理
      * 3.递归过程
@@ -63,6 +79,11 @@ public class LinkedOp {
             temp.next=merge(list1.next,list2);
         }
         return temp;
+
+    }
+
+    public static void main(String[] args) {
+        LinkedOp op = new LinkedOp();
 
     }
 }
