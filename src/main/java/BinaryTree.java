@@ -377,19 +377,24 @@ public class BinaryTree<E extends Number> {
 
     }
 
-    public static void main(String[] args){
-        Integer[] array = {10,5,12,4,7};
-        BinaryTree bt = new BinaryTree();
-        BinaryTree.TreeNode root = bt.buildTree(array);
-//        System.out.print("树的高度：");
-//        System.out.println(bt.getHigh(root));
-       // bt.LNR(root);
-        //bt.nonRecInOrder(root);
-        //bt.levelOrder(root);
-        //bt.findPath(root,22);
-        bt.convert(root);
 
-    }
+
+//    public static void main(String[] args){
+//        Integer[] array = {10,5,12,4,7};
+//        BinaryTree bt = new BinaryTree();
+//        BinaryTree.TreeNode root = bt.buildTree(array);
+////        System.out.print("树的高度：");
+////        System.out.println(bt.getHigh(root));
+//       // bt.LNR(root);
+//        //bt.nonRecInOrder(root);
+//        //bt.levelOrder(root);
+//        //bt.findPath(root,22);
+//        bt.convert(root);
+//
+//    }
+
+
+
 
 
 }
