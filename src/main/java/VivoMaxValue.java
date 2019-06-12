@@ -3,6 +3,7 @@
  * @Date: 2019-06-04 20:25
  * 输入：总金额：1000+礼物单价+对应礼物热度
  */
+import java.*;
 public class VivoMaxValue {
     /**
      *动态规划
