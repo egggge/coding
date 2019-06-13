@@ -69,17 +69,18 @@ public class BinaryTree<E extends Number> {
 
     /**
      * 把数组转变成完全二叉树
+     * 层次遍历
      * @param array
      * @return
      */
 
     public TreeNode<E> buildTree(E[] array){
+        //这里用arraylist也是一样的
         nodeList = new LinkedList<TreeNode>();
+        //首先将节点编号挨个放进list中
         for (int i=0;i<array.length;i++){
             nodeList.add(new TreeNode(array[i]));
-
         }
-
         //左孩子：2*j+1
         //右孩子：2*j+2
         //注意j的取值
@@ -89,7 +90,7 @@ public class BinaryTree<E extends Number> {
             nodeList.get(j).setRchild(nodeList.get(2*j+2));
         }
 
-        //最后一个父节点，单独处理
+        //最后一个父节点（不是根节点），单独处理
         int index = array.length/2-1;
         nodeList.get(index).setLchild(nodeList.get(2*index+1));
         //如果长度是奇数才有右孩子
@@ -101,13 +102,11 @@ public class BinaryTree<E extends Number> {
 
 
     }
-
     /**
      * 递归求解树的高度
      * @param node
      * @return
      */
-
 
     public int getHigh(TreeNode<E> node){
         if (node==null){
@@ -118,9 +117,7 @@ public class BinaryTree<E extends Number> {
             int j = getHigh(node.getRchild());
             return (i<j)?(j+1):(i+1);
         }
-
     }
-
     /**
      * 递归求解树的节点数
      * @param node
@@ -225,6 +222,7 @@ public class BinaryTree<E extends Number> {
 
     /**
      * 在二叉树中找到值为m的路径
+     * 先序遍历
      * @param root
      * @param k
      */
@@ -237,7 +235,6 @@ public class BinaryTree<E extends Number> {
     }
     public void findPath(TreeNode<E> root,int k,Stack<Integer> path){
         if(root == null){return;}
-        //深度遍历
         if(root.getLchild() == null && root.getRchild() == null){
             if(root.data.intValue() == k){
                 System.out.println("路径开始");
@@ -251,6 +248,7 @@ public class BinaryTree<E extends Number> {
             path.push(root.data.intValue());
             findPath(root.getLchild(),k-root.data.intValue(),path);
             findPath(root.getRchild(),k-root.data.intValue(),path);
+            //在返回父节点之前，在路径上删除当前节点
             path.pop();
         }
     }
@@ -368,8 +366,8 @@ public class BinaryTree<E extends Number> {
         TreeNode root=new TreeNode(pre[startPre]);
         for (int i=startIn;i<=endIn;i++){
             if (in[i]==pre[startPre]){
-                root.lchild=reBuild(pre,startPre+1,startPre+i-startIn,in,startIn,i-1);
-                root.rchild=reBuild(pre,i-startIn+startPre+1,endPre,in,i+1,endIn);
+                root.lchild=reBuild(pre,startPre+1,startPre+(i-startIn),in,startIn,i-1);
+                root.rchild=reBuild(pre,(i-startIn+startPre)+1,endPre,in,i+1,endIn);
                 break;
             }
         }
@@ -377,21 +375,60 @@ public class BinaryTree<E extends Number> {
 
     }
 
+    /**
+     * 树的子结构
+     * @param root1
+     * @param root2
+     * @return
+     */
+    public boolean hasSubTree(TreeNode<E> root1,TreeNode<E> root2){
+        if (root1==null||root2==null){
+            return false;
+        }
+        boolean isSubTree=false;
+        //找到一个相同的根节点，进入检查子结构部分
+        if (root1.data.equals(root2.data)){
+            isSubTree=isSubTree(root1,root2);
+        }
+        if (!isSubTree){
+            isSubTree=hasSubTree(root1.rchild,root2);
+        }
+        if (!isSubTree){
+            isSubTree=hasSubTree(root1.lchild,root2);
+        }
+        return isSubTree;
+
+    }
+    public boolean isSubTree(TreeNode<E> root1,TreeNode<E> root2){
+        //子树遍历完
+        if (root2==null){
+            return true;
+        }
+        //大树遍历完
+        if (root1==null){
+            return false;
+        }
+        if (root1.data.equals(root2.data)){
+            return isSubTree(root1.lchild,root2.lchild)&&isSubTree(root1.rchild,root2.rchild);
+        }
+        return false;
+    }
 
 
-//    public static void main(String[] args){
-//        Integer[] array = {10,5,12,4,7};
-//        BinaryTree bt = new BinaryTree();
-//        BinaryTree.TreeNode root = bt.buildTree(array);
-////        System.out.print("树的高度：");
-////        System.out.println(bt.getHigh(root));
+
+    public static void main(String[] args){
+        Integer[] array = {10,5,12,4,7};
+        BinaryTree bt = new BinaryTree();
+        BinaryTree.TreeNode root = bt.buildTree(array);
+        System.out.print("树的高度：");
+        System.out.println(bt.getHigh(root));
 //       // bt.LNR(root);
 //        //bt.nonRecInOrder(root);
 //        //bt.levelOrder(root);
 //        //bt.findPath(root,22);
 //        bt.convert(root);
 //
-//    }
+    }
 
 
 
