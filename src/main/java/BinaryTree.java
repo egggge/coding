@@ -220,6 +220,48 @@ public class BinaryTree<E extends Number> {
         }
     }
 
+    public void zPrint(TreeNode<E> node){
+        if (node==null){
+            return;
+        }
+        Stack<TreeNode<E>> stack1=new Stack<TreeNode<E>>();
+        Stack<TreeNode<E>> stack2=new Stack<TreeNode<E>>();
+
+        int current=0;
+
+        stack1.push(node);
+        while (!stack1.empty()||!stack2.empty()){
+            while (current==0&&!stack1.empty()){
+                TreeNode<E> tempnode=stack1.pop();
+                System.out.printf(tempnode.getData()+" ");
+                if (tempnode.lchild!=null){
+                    stack2.push(tempnode.lchild);
+                }
+                if (tempnode.rchild!=null){
+                    stack2.push(tempnode.rchild);
+                }
+            }
+            System.out.println();
+            current=1-current;
+            while (current==1&&!stack2.empty()){
+                TreeNode<E> tempnode=stack2.pop();
+                System.out.printf(tempnode.getData()+" ");
+                if (tempnode.rchild!=null){
+                    stack1.push(tempnode.rchild);
+                }
+                if (tempnode.lchild!=null){
+                    stack1.push(tempnode.lchild);
+                }
+            }
+            current=1-current;
+            System.out.println();
+
+        }
+
+
+
+    }
+
     /**
      * 在二叉树中找到值为m的路径
      * 先序遍历
@@ -417,11 +459,12 @@ public class BinaryTree<E extends Number> {
 
 
     public static void main(String[] args){
-        Integer[] array = {10,5,12,4,7};
+        Integer[] array = {1,2,3,4,5,6,7,8,9,10};
         BinaryTree bt = new BinaryTree();
         BinaryTree.TreeNode root = bt.buildTree(array);
-        System.out.print("树的高度：");
-        System.out.println(bt.getHigh(root));
+        bt.zPrint(root);
+//        System.out.print("树的高度：");
+//        System.out.println(bt.getHigh(root));
 //       // bt.LNR(root);
 //        //bt.nonRecInOrder(root);
 //        //bt.levelOrder(root);
