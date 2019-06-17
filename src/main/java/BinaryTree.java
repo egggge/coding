@@ -221,6 +221,40 @@ public class BinaryTree<E extends Number> {
     }
 
     /**
+     * 分层打印二叉树
+     * 借助两个变量：nextLevle记录这一层有几个节点，toBePrint记录打印了几个节点
+     * @param node
+     */
+    public void printLevel(TreeNode<E> node){
+        //这里为什么不能用arraylist
+            Queue<TreeNode<E>> queue=new LinkedList<TreeNode<E>>();
+            if (node==null){
+                return;
+            }
+            int nextLevel=0;
+            int toBePrint=1;
+            queue.offer(node);
+            while (!queue.isEmpty()){
+                TreeNode<E> nodetemp = queue.poll();
+                System.out.printf(nodetemp.getData()+" ");
+                --toBePrint;
+                if (nodetemp.getLchild()!=null){
+                    queue.offer(nodetemp.lchild);
+                    nextLevel++;
+                }
+                if (nodetemp.getRchild()!=null){
+                    queue.offer(nodetemp.rchild);
+                    nextLevel++;
+                }
+                if (toBePrint==0){
+                    System.out.println();
+                    toBePrint=nextLevel;
+                    nextLevel=0;
+                }
+            }
+    }
+
+    /**
      * 在二叉树中找到值为m的路径
      * 先序遍历
      * @param root
@@ -417,11 +451,13 @@ public class BinaryTree<E extends Number> {
 
 
     public static void main(String[] args){
-        Integer[] array = {10,5,12,4,7};
-        BinaryTree bt = new BinaryTree();
-        BinaryTree.TreeNode root = bt.buildTree(array);
-        System.out.print("树的高度：");
-        System.out.println(bt.getHigh(root));
+
+//        BinaryTree bt = new BinaryTree();
+//        BinaryTree.TreeNode root = bt.buildTree(array);
+//        System.out.print("树的高度：");
+//        System.out.println(bt.getHigh(root));
+        //bt.printLevel(root);
+       // bt.zPrint(root);
 //       // bt.LNR(root);
 //        //bt.nonRecInOrder(root);
 //        //bt.levelOrder(root);
