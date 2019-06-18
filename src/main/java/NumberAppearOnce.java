@@ -47,13 +47,42 @@ public class NumberAppearOnce {
         }
         return -1;
     }
-    public static void main(String[] args){
-        int[] data = new int[]{2,4,3,6,3,2,5,5};
-        System.out.println(findFirstBit1(3));
 
-        int[] result = findNumsAppearOnce(data); // 4,6
-        System.out.println(result[0]);
-        System.out.println(result[1]);
+    public static int findNumsAppearOnce2(int[] num){
+        if (num.length<=0||num==null){
+            throw new RuntimeException();
+        }
+        int[] bitSum = new int[32];
+        for(int i=0;i<32;i++){
+            bitSum[i]=0;
+        }
+        for(int i=0;i<num.length;i++) {
+            int bitMask=1;
+            for(int j=31;j>=0;j--) {
+                //注意arr[i]&bitMask不一定等于1或者0，有可能等于00010000
+                int bit=num[i]&bitMask;
+                if(bit!=0){
+                    bitSum[j]+=1;
+                }
+                //用左移来移动32位中的1
+                bitMask=bitMask<<1;
+            }
+        }
+        int result=0;
+        for(int i=0;i<32;i++) {
+            result=result<<1;
+            result+=(bitSum[i]%3);
+            //result=result<<1;  //不能放在后面，否则最前面一位就没了
+        }
+        return result;
+    }
+
+    public static void main(String[] args){
+        int[] data = new int[]{2,2,3,6,3,2,3};
+        //int[] result = findNumsAppearOnce(data); // 4,6
+        int res=findNumsAppearOnce2(data);
+        System.out.println(res);
+
 
     }
 }
