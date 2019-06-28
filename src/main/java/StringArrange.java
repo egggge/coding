@@ -1,12 +1,40 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Author: egg
  * @Date: 2019-05-23 11:08
  */
 public class StringArrange {
+    private static Set<String> set;
+    static {
+        set=new HashSet<String>();
+        set.add("1");
+        int num=1;
+        while (true){
+            num<<=1;
+            System.out.println(num);
+            char[] s= Integer.toString(num).toCharArray();
+            //设定上界
+            if (s.length>10){break;}
+            System.out.println(s);
+            Arrays.sort(s);
+            set.add(new String(s));
+        }
+    }
+    /**
+     * 输入数字，排序，是否为2的幂
+     * @param N
+     * @return
+     */
+    public boolean reorderedPowerOf2(int N) {
+        char[] chars=Integer.toString(N).toCharArray();
+        Arrays.sort(chars);
+        String s=new String(chars);
+        return set.contains(s);
+
+
+    }
+
     public void permutateSequence(char[] strArrs,int i){
         char temp;
         if(strArrs==null||i>strArrs.length||i<0){
@@ -113,34 +141,10 @@ public class StringArrange {
         combine(cs,begin+1,number,list);
     }
 
-    /**
-     * 输入数字，排序，是否为2的幂
-     * @param N
-     * @return
-     */
-    public boolean reorderedPowerOf2(int N) {
-        String s=String.valueOf(N);
-        char[] array=s.toCharArray();
 
 
-    }
-    public  void listAll(List candidate, String prefix)
-    {
-        if(candidate.isEmpty())
-        {
-            System.out.println(prefix);
-        }
-        for(int i=0;i<candidate.size();i++)
-        {
-            //转换成linkList,移除一个对象是在不影响原来队列的基础上的
-            List temp=new LinkedList(candidate);
-            //用于保存排列组合生成的结果
-            String s1=prefix+temp.remove(i);
-            //注意，这里temp和s1都是全新的集合和字符串，并不是一直对一个集合来进行操作
-            listAll(temp,s1);
-        }
 
-    }
+
 
 
     public static void main(String[] args) {
@@ -150,9 +154,12 @@ public class StringArrange {
         char[] arrayA = A.toCharArray();
         char[] arrayB = B.toCharArray();
         int[] ints ={1,2,3};
-        stringArrange.recursionArrange(arrayA,0,arrayA.length-1);
-        //stringArrange.permutateSequence(arrayB,0);
-        //stringArrange.permute(ints);
+        //stringArrange.recursionArrange(arrayA,0,arrayA.length-1);
+        if (stringArrange.reorderedPowerOf2(46)){
+            System.out.println(1);
+        }
+
+
 
     }
 }
