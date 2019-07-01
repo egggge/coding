@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -153,17 +155,50 @@ public class LinkedOp {
 
     }
 
+    /**
+     * 约瑟夫问题，求最后剩下的数字
+     * 用环形链表
+     * @param n n个数字
+     * @param m 每次剔除m位置的数字
+     * @return
+     */
+    public void lastRemainning(int n,int m){
+        //抽出头节点
+        ListNode first=new ListNode(1);
+        ListNode temp=first;
+
+        //建立单向链表
+        for (int i=2;i<=n;i++){
+            temp=(temp.next=new ListNode(i));
+        }
+        //最后一个节点指向第一个节点
+        temp.next=first;
+        System.out.println("依次出来的顺序为：");
+        while(temp!=temp.next)
+        {
+            for(int i=1;i<m;i++)
+            {
+                temp=temp.next;
+            }
+            System.out.print(temp.next.val+" ");
+            temp.next=temp.next.next;
+        }
+        System.out.println();
+        System.out.println("最后剩余的是： "+temp.val);
+    }
+
     public static void main(String[] args) {
         LinkedOp op = new LinkedOp();
-        int[] data1={1,3};
-        ListNode head1=op.arrayToListNode(data1);
-        int[] data2={2,4,6};
-        ListNode head2=op.arrayToListNode(data2);
-        ListNode res=op.mergeNoRecursion(head2,head1);
-        while (res!=null){
-            System.out.println(res.val);
-            res=res.next;
-        }
+        op.lastRemainning(5,1);
+//        int[] data1={1,3};
+//        ListNode head1=op.arrayToListNode(data1);
+//        int[] data2={2,4,6};
+//        ListNode head2=op.arrayToListNode(data2);
+//        ListNode res=op.mergeNoRecursion(head2,head1);
+//        while (res!=null){
+//            System.out.println(res.val);
+//            res=res.next;
+//        }
 
 
     }
