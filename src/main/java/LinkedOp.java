@@ -187,6 +187,57 @@ public class LinkedOp {
         System.out.println("最后剩余的是： "+temp.val);
     }
 
+    /**
+     * 确定链表是否有环
+     * @param node
+     * @return
+     */
+    public static ListNode meetingNode(ListNode node){
+        if (node==null||node.next==null){
+            return null;
+        }
+        //只有两个节点，不成环的那种
+        ListNode temp=node.next.next;
+        while (temp!=null&&node!=null){
+            if (node==temp){
+                return node;
+            }else {
+                node=node.next;
+                temp=temp.next;
+                if (temp!=null){
+                    temp=temp.next;
+                }
+
+            }
+        }
+        return null;
+    }
+    public ListNode entryNodeOfLoop(ListNode node){
+        ListNode meetingNode=meetingNode(node);
+        if (meetingNode==null){
+            return null;
+        }
+        //得到环中的数目
+        int nodeInLoop=1;
+        ListNode pNode1=meetingNode;
+        while (pNode1.next!=meetingNode){
+            pNode1=pNode1.next;
+            nodeInLoop++;
+        }
+        //找到入口
+        pNode1=node;
+        for (int i=0;i<nodeInLoop;i++){
+            pNode1=pNode1.next;
+        }
+        ListNode pNode2=node;
+        while (pNode1!=pNode2){
+            pNode1=pNode1.next;
+            pNode2=pNode2.next;
+        }
+        return pNode1;
+
+    }
+
     public static void main(String[] args) {
         LinkedOp op = new LinkedOp();
         op.lastRemainning(5,1);
