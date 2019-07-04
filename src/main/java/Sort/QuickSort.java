@@ -5,38 +5,48 @@ package Sort;
  * @date 2019/7/3 10:14
  */
 public class QuickSort {
-    public int quickPartition(int[] data,int i,int j){
-        //用data[0]表示临时变量
-        data[0]=data[i];
-        while (i<j){
-            while (i<j&&data[j]>=data[0]){
-                j--;
+    public static void quickPartition(int[] data,int startindex,int endindex) {
+        if (data != null && data.length >0) {
+            int start = startindex, end = endindex;
+            int target = data[startindex];
+            while (start < end) {
+                while (start < end) {
+                    if (data[end] < target) {
+                        int temp = data[end];
+                        data[end] = data[start];
+                        data[start] = temp;
+                        start++;
+                        break;
+                    } else {
+                        end--;
+                    }
+                }
+                while (start < end) {
+                    if (data[start] > target) {
+                        int temp = data[end];
+                        data[end] = data[start];
+                        data[start] = temp;
+                        end--;
+                        break;
+                    } else {
+                        start++;
+                    }
+                }
             }
-            //if语句是换位置
-            if (i<j){
-                data[i]=data[j];
-                i++;
+            if ((start - 1) > startindex) {
+                quickPartition(data, startindex, start - 1);
             }
-            while (i<j&&data[i]<=data[0]){
-                i++;
-            }
-            if (i<j){
-                data[j]=data[i];
-                j--;
+            if ((end + 1) < endindex) {
+                quickPartition(data, end + 1, endindex);
             }
         }
-        //这句话是什么意思
-        //因为每次赋值只改变了一个，没有两个都改变
-        data[i]=data[0];
-        return i;
-
     }
-    public void quickSort(int[] data,int s,int t){
-        int i=0;
-        while (s<t){
-            i=quickPartition(data,s,t);
-            quickSort(data,s,i-1);
-            quickSort(data,i+1,t);
+
+    public static void main(String[] args) {
+        int[] data={3,6,7,0,8,9,1,5};
+        quickPartition(data,0,data.length-1);
+        for (int i:data){
+            System.out.println(i);
         }
 
     }
