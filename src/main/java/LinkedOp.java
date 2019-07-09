@@ -237,6 +237,52 @@ public class LinkedOp {
         return pNode1;
 
     }
+    /**
+     * 两个链表相加
+     * @param l1
+     * @param l2
+     * @return
+     */
+    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        if (l1==null&&l2==null){
+            return null;
+        }
+        List<Integer> list=new ArrayList<Integer>();
+        while (l1!=null&&l2!=null){
+            int temp=l1.val+l2.val;
+            list.add(temp);
+            l1=l1.next;
+            l2=l2.next;
+        }
+        while (l1!=null){
+            list.add(l1.val);
+            l1=l1.next;
+        }
+        while (l2!=null){
+            list.add(l2.val);
+            l2=l2.next;
+        }
+        ListNode node=new ListNode(0);
+        ListNode begin=node;
+        int addOne=0;
+        for (int i:list){
+            node.next=new ListNode(0);
+            node=node.next;
+            int temp=i+addOne;
+            addOne=0;
+            while (temp>=10){
+                addOne++;
+                temp-=10;
+            }
+            node.val=temp;
+        }
+        if (addOne==1){
+            node.next=new ListNode(addOne);
+        }
+
+        return begin.next;
+    }
+
 
     public static void main(String[] args) {
         LinkedOp op = new LinkedOp();
