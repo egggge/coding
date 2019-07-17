@@ -4,7 +4,7 @@
  */
 public class CompletenessCode {
     /**
-     * 考虑完整想
+     * 正则表达式匹配
      * @param input
      * @param pattern
      * @return
@@ -46,7 +46,7 @@ public class CompletenessCode {
                 return matchCore(input,i,pattern,p+2);
             }
         }
-        //end pattern.charAt(p+1)=='*'
+
         if((input.charAt(i)==pattern.charAt(p))||(pattern.charAt(p)=='.')){
 
             //pattern第二个字母不是*，且首字母匹配

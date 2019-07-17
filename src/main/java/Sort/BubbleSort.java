@@ -18,6 +18,7 @@ public class BubbleSort {
      */
     public static void bubbleSortI(int[] data){
         if (data.length==0){
+            System.out.println("数组为空");
             return;
         }
         int len=data.length;

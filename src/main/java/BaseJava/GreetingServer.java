@@ -14,6 +14,15 @@ import java.net.SocketTimeoutException;
 public class GreetingServer extends Thread {
     private ServerSocket serverSocket;
 
+    /**
+     * 1。创建ServerSocket对象，绑定监听端口
+     * 2。通过accept()方法监听客户端请求
+     * 3。通过输入流接收客户端发来的信息
+     * 4。通过输出流向客户端发送响应信息
+     * @param port
+     * @throws IOException
+     */
+
     public GreetingServer(int port) throws IOException
     {
         //服务器实例化serverSocket

@@ -11,7 +11,7 @@ public class longestSubWithoutDup {
         int maxLength=0;
 
         int[] position=new int[26];
-        //代表26个字母
+        //用坐标代替字母
         for (int i=0;i<26;i++){
             position[i]=-1;
         }
@@ -26,6 +26,7 @@ public class longestSubWithoutDup {
                 if (curLength>maxLength){
                     maxLength=curLength;
                 }
+
                 curLength=i-prevIndex;
             }
             position[chars[i]-'a']=i;
@@ -40,6 +41,6 @@ public class longestSubWithoutDup {
         String s="cabcacfr";
         longestSubWithoutDup test = new longestSubWithoutDup();
         System.out.println(test.longest(s));
-        //System.out.println('c'-'a');
+        System.out.println('c'-'a');
     }
 }

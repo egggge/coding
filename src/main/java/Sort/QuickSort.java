@@ -5,6 +5,42 @@ package Sort;
  * @date 2019/7/3 10:14
  */
 public class QuickSort {
+    public static void sortQucik(int[] data,int startindex,int endindex){
+        if (data==null){
+            System.out.println("kong");
+            return;
+        }
+        int start=startindex;
+        int end=endindex;
+        int target=data[start];
+        while (start<end){
+            while (start<end&&target<=data[end]){
+                end--;
+            }
+            if (start<end&&target>data[end]){
+                int temp=data[end];
+                data[end]=target;
+                data[start]=temp;
+                start++;
+            }
+            while (start<end&&target>=data[start]){
+                start++;
+            }
+            if (start<end&&target<data[start]){
+                int temp=data[start];
+                data[start]=target;
+                data[end]=temp;
+                end--;
+            }
+        }
+        if ((start-1)>startindex){
+            sortQucik(data,startindex,start-1);
+        }
+        if ((end+1)<endindex){
+            sortQucik(data,end+1,endindex);
+        }
+
+    }
     public static void quickPartition(int[] data,int startindex,int endindex) {
         if (data != null && data.length >0) {
             int start = startindex, end = endindex;
@@ -43,7 +79,7 @@ public class QuickSort {
     }
 
     public static void main(String[] args) {
-        int[] data={3,6,7,0,8,9,1,5};
+        int[] data={8,9,6,5};
         quickPartition(data,0,data.length-1);
         for (int i:data){
             System.out.println(i);
