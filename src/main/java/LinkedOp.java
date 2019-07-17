@@ -8,6 +8,11 @@ import java.util.Stack;
  * @Date: 2019-05-15 10:41
  */
 public class LinkedOp {
+    /**
+     * 将数组转换为链表
+     * @param s
+     * @return
+     */
     public ListNode arrayToListNode(int[] s) {
         ListNode root = new ListNode(s[0]);
         ListNode other = root;
@@ -31,6 +36,64 @@ public class LinkedOp {
         while (!stack.empty()){
             System.out.println(stack.pop());
         }
+
+    }
+
+    /**
+     * 合并两个链表并且去重
+     * @param node1
+     * @param node2
+     * @return
+     */
+    public ListNode mergeList(ListNode node1,ListNode node2) {
+        if (node1 == null && node2 == null) {
+            return null;
+        }
+        if (node1==null){
+            return node2;
+        }
+        if (node2==null){
+            return node1;
+        }
+        if (node1.val<node2.val){
+            node1.next=mergeList(node1.next,node2);
+            return node1;
+        }else if (node2.val<node1.val){
+            node2.next=mergeList(node1,node2.next);
+            return node2;
+        }else {
+            node1.next=mergeList(node1.next,node2.next);
+            return node1;
+        }
+
+    }
+
+    /**
+     * 合并两个有序链表
+     * 1.链表为空
+     * 2。链表只有一个元素，当最后一个元素处理
+     * 3.递归过程
+     * 4。思维没有抽象出来
+     * @param list1
+     * @param list2
+     * @return
+     */
+    public  ListNode merge(ListNode list1,ListNode list2){
+        if (list1==null){
+            return list2;
+        }
+        if (list2==null){
+            return list1;
+        }
+        if (list1.val<=list2.val){
+            list1.next=merge(list1.next,list2);
+            return list1;
+        }
+        else {
+            list2.next=merge(list1,list2.next);
+            return list2;
+        }
+
 
     }
 
@@ -69,33 +132,11 @@ public class LinkedOp {
     }
 
     /**
-     * 合并两个有序链表
-     * 1.链表为空
-     * 2。链表只有一个元素，当最后一个元素处理
-     * 3.递归过程
-     * 4。思维没有抽象出来
+     * 合并链表非递归
      * @param list1
      * @param list2
      * @return
      */
-    public  ListNode merge(ListNode list1,ListNode list2){
-        if (list1==null){
-            return list2;
-        }
-        if (list2==null){
-            return list1;
-        }
-        if (list1.val<=list2.val){
-            list1.next=merge(list1.next,list2);
-            return list1;
-        }
-        else {
-            list2.next=merge(list1,list2.next);
-            return list2;
-        }
-
-
-    }
     public  ListNode mergeNoRecursion(ListNode list1,ListNode list2){
         if (list1==null){
             return list2;
@@ -286,16 +327,15 @@ public class LinkedOp {
 
     public static void main(String[] args) {
         LinkedOp op = new LinkedOp();
-        op.lastRemainning(5,1);
-//        int[] data1={1,3};
-//        ListNode head1=op.arrayToListNode(data1);
-//        int[] data2={2,4,6};
-//        ListNode head2=op.arrayToListNode(data2);
-//        ListNode res=op.mergeNoRecursion(head2,head1);
-//        while (res!=null){
-//            System.out.println(res.val);
-//            res=res.next;
-//        }
+        int[] data1={1,2,3};
+        ListNode head1=op.arrayToListNode(data1);
+        int[] data2={2,4,6};
+        ListNode head2=op.arrayToListNode(data2);
+        ListNode res=op.mergeList(head1,head2);
+        while (res!=null){
+            System.out.println(res.val);
+            res=res.next;
+        }
 
 
     }
