@@ -12,6 +12,7 @@ public class ReplaceBlank {
         if (s==null){
             return;
         }
+        int len=s.length();
         char[] chars=s.toCharArray();
         StringBuffer stringBuffer=new StringBuffer();
         for (char c:chars){

@@ -10,6 +10,9 @@ public class Search {
      * @return
      */
     public int binarySearch(int[] data,int key){
+        if (data.length==0){
+            return -1;
+        }
         //lo从1开始
         int lo=1;
         int hi=data.length;
@@ -29,7 +32,7 @@ public class Search {
 
         }
         //这里表示找寻失败
-        return 0;
+        return -1;
     }
 
     public int getFirstKey(int[] data,int length,int key,int start,int end){
