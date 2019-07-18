@@ -3,6 +3,11 @@
  * @Date: 2019-05-13 14:23
  */
 public class CutRope {
+    /**
+     * 减绳子，每段长度乘积最大
+     * @param len
+     * @return
+     */
     public static int maxCuttingRope(int len){
         if (len<2){
             return 0;
@@ -22,6 +27,7 @@ public class CutRope {
 
         for (int i=4;i<=len;i++){
             max=0;
+            //这里j<=i/2;因为如果j<i后面数字是重复的
             for (int j=1;j<=i/2;j++){
                 int product = maxProduct[j]*maxProduct[i-j];
                 if (max<product){
