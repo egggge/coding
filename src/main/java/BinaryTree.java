@@ -406,8 +406,8 @@ public class BinaryTree<E extends Number> {
             }
         }
         return root;
-
     }
+
 
     /**
      * 树的子结构
