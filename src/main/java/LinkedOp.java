@@ -324,6 +324,59 @@ public class LinkedOp {
         return begin.next;
     }
 
+    /**
+     * 找到两个链表的第一个共同点
+     * @param headA
+     * @param headB
+     * @return
+     */
+    public  ListNode findFirstComNode(ListNode headA,ListNode headB){
+        int lenA=0;
+        int lenB=0;
+        ListNode tempA=headA;
+        ListNode tempB=headB;
+        while (tempA!=null){
+            tempA=tempA.next;
+            lenA++;
+        }
+        while (tempB!=null){
+            tempB=tempB.next;
+            lenB++;
+        }
+
+
+        if (lenA>lenB){
+            tempA=headA;
+            int len=lenA-lenB;
+            while (len!=0){
+                tempA=tempA.next;
+                len--;
+            }
+        }else if (lenA<lenB){
+            tempB=headB;
+            int len=lenB-lenA;
+            while (len!=0){
+                tempB=tempB.next;
+                len--;
+            }
+
+        }else {
+            tempB=headB;
+            tempA=headA;
+        }
+        while (tempA!=null&&tempB!=null){
+            if (tempA==tempB){
+                return tempA;
+            }else {
+                tempA=tempA.next;
+                tempB=tempB.next;
+            }
+
+        }
+        return null;
+
+    }
+
 
     public static void main(String[] args) {
         LinkedOp op = new LinkedOp();
