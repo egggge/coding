@@ -62,7 +62,8 @@ public class ReverseSentence {
     public static void main(String[] args) {
         ReverseSentence reverseSentence=new ReverseSentence();
         //reverseSentence.reverseSentence("I Love u.");
-        reverseSentence.leftRotateString("abcdefg",6);
+        //reverseSentence.leftRotateString("abcdefg",6);
+        reverseSentence.reverseSentence("i love u.");
     }
 
 }
