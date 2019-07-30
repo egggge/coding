@@ -3,6 +3,11 @@
  * @Date: 2019-07-30 17:12
  */
 public class MaxPrice {
+    /**
+     * 记录前i-1个数字当中最小的数字
+     * @param arr
+     * @return
+     */
     public static int getMaxPrices(int[] arr){
         int min=arr[0];
         int maxPrice=arr[1]-arr[0];
