@@ -77,20 +77,20 @@ public class BinaryTree<E extends Number> {
     public TreeNode<E> buildTree(E[] array){
         //这里用arraylist也是一样的
         nodeList = new LinkedList<TreeNode>();
-        //首先将节点编号挨个放进list中
+        //首先数组中的数字化为二叉树的节点
         for (int i=0;i<array.length;i++){
             nodeList.add(new TreeNode(array[i]));
         }
         //左孩子：2*j+1
         //右孩子：2*j+2
         //注意j的取值
-        //节点从1开始计算
+        //节点从0开始计算
         for (int j=0;j<(array.length/2-1);j++){
             nodeList.get(j).setLchild(nodeList.get(2*j+1));
             nodeList.get(j).setRchild(nodeList.get(2*j+2));
         }
 
-        //最后一个父节点（不是根节点），单独处理
+        //最后一个父节点，单独处理
         int index = array.length/2-1;
         nodeList.get(index).setLchild(nodeList.get(2*index+1));
         //如果长度是奇数才有右孩子
@@ -153,11 +153,40 @@ public class BinaryTree<E extends Number> {
     }
 
     /**
+     * 前序遍历
+     * @param node
+     */
+    public void NLR(TreeNode<E> node){
+        if (node==null){
+            return;
+        }else {
+            System.out.println(node.data);
+            NLR(node.getLchild());
+            NLR(node.getRchild());
+        }
+    }
+
+    /**
+     * 后序遍历
+     * @param node
+     */
+    public void LRN(TreeNode<E> node){
+        if (node==null){
+            return;
+        }else {
+            LRN(node.getLchild());
+            LRN(node.getRchild());
+            System.out.println(node.data);
+        }
+    }
+
+    /**
+     * 先把根结点压入栈，然后找到左节点
+     * 左子树为空，出栈（相当于一个根结点），找寻出栈节点的右节点
      * 非递归实现中序遍历
      * @param node
      */
     public void nonRecInOrder(TreeNode<E> node){
-        //java栈（FILO）
         Stack<TreeNode<E>> nodeStack = new Stack<TreeNode<E>>();
         TreeNode<E> nodeTemp = node;
         //栈非空
@@ -174,6 +203,37 @@ public class BinaryTree<E extends Number> {
             }
         }
     }
+
+    /**
+     * 非递归后序遍历
+     * 栈：先进后出
+     * 用双栈
+     * @param node
+     */
+    public void nonRecLastOrder(TreeNode<E> node){
+        Stack<TreeNode<E>> nodeStack = new Stack<TreeNode<E>>();
+        Stack<TreeNode<E>> nodeStack2 = new Stack<TreeNode<E>>();
+
+        TreeNode<E> nodeTemp=node;
+        if (node!=null){
+            nodeStack.push(node);
+        }
+        while(!nodeStack.isEmpty()){
+            nodeTemp = nodeStack.pop();
+            nodeStack2.push(nodeTemp);
+            if(nodeTemp.getLchild()!= null){
+                nodeStack.push(nodeTemp.getLchild());
+            }
+            if(nodeTemp.getRchild()!= null){
+                nodeStack.push(nodeTemp.getRchild());
+            }
+        }
+        while(!nodeStack2.isEmpty()){
+            System.out.println(nodeStack2.pop().data+ " ");
+        }
+    }
+
+
 
     /**
      * 非递归实现前序遍历
@@ -452,10 +512,11 @@ public class BinaryTree<E extends Number> {
 
     public static void main(String[] args){
 
-//        BinaryTree bt = new BinaryTree();
-//        BinaryTree.TreeNode root = bt.buildTree(array);
-//        System.out.print("树的高度：");
-//        System.out.println(bt.getHigh(root));
+        BinaryTree bt = new BinaryTree();
+        Number[] array={0,1,2,3,4,5,6,7};
+        BinaryTree.TreeNode root = bt.buildTree(array);
+        bt.nonRecLastOrder(root);
+
         //bt.printLevel(root);
        // bt.zPrint(root);
 //       // bt.LNR(root);
