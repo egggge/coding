@@ -5,6 +5,7 @@
 public class CutRope {
     /**
      * 减绳子，每段长度乘积最大
+     * products数组定义的值和绳子长度的值无关！！！
      * @param len
      * @return
      */
@@ -20,9 +21,9 @@ public class CutRope {
         }
         Integer[] maxProduct = new Integer[len+1];
         maxProduct[0]=0;
-        maxProduct[1]=0;
-        maxProduct[2]=1;
-        maxProduct[3]=2;
+        maxProduct[1]=1;
+        maxProduct[2]=2;
+        maxProduct[3]=3;
         int max = 0;
 
         for (int i=4;i<=len;i++){
@@ -35,15 +36,12 @@ public class CutRope {
                     maxProduct[i]=max;
                 }
             }
-
-
-
         }
         max = maxProduct[len];
         return max;
     }
     public static void main(String[] args){
-        System.out.println(maxCuttingRope(6));
+        System.out.println(maxCuttingRope(8));
 
     }
 }
