@@ -37,12 +37,50 @@ public class ReverseSentence {
         }
         return result;
     }
-    public void reverseSentence(String s){
+
+    /**
+     * f翻转字符串
+     * 注意trim()去除空格的使用
+     * @param str
+     * @return
+     */
+    public String reverseSentence(String str) {
+        if (str == null) {
+            return null;
+        } else if (str.trim().equals("")) {
+            return str;
+        } else {
+            String[] list = str.split(" ");
+            StringBuffer stringBuffer = new StringBuffer();
+
+            int i = list.length - 1;
+            while (i > 0) {
+                stringBuffer.append(list[i] + " ");
+                i--;
+
+            }
+            stringBuffer.append(list[i]);
+            return stringBuffer + "";
+
+
+        }
+    }
+
+    /**
+     * 翻转字符串
+     * 没有上一个考虑周全
+     * @param s
+     */
+    public void reverseSentenceII(String s){
         List<String> sList= Arrays.asList(s.split(" "));
         for (int j=sList.size()-1;j>=0;j--){
             System.out.printf(sList.get(j)+" ");
         }
+
+
     }
+
+
     public void leftRotateString(String s,int n){
         if (s==null){
             throw new RuntimeException();
