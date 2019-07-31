@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * @Author: egg
@@ -421,15 +418,12 @@ public class LinkedOp {
 
     public static void main(String[] args) {
         LinkedOp op = new LinkedOp();
-        int[] data1={1,2,3};
+        int[] data1={1,9,3,8};
         ListNode head1=op.arrayToListNode(data1);
-        int[] data2={2,4,6};
-        ListNode head2=op.arrayToListNode(data2);
-        ListNode res=op.mergeList(head1,head2);
-        while (res!=null){
-            System.out.println(res.val);
-            res=res.next;
-        }
+
+
+
+
 
 
     }
