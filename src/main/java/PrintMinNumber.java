@@ -27,6 +27,7 @@ public class PrintMinNumber {
                 String s1=o1+""+o2;
                 String s2=o2+""+o1;
                 //升序，代表原数组按照降序的排序
+                System.out.println(s1+","+s2+","+s1.compareTo(s2));
                 return s1.compareTo(s2);
             }
         });
@@ -39,7 +40,7 @@ public class PrintMinNumber {
     }
 
     public static void main(String[] args) {
-        int[] arr={3,12,121};
+        int[] arr={3,12,121,4};
         System.out.println(printMinNum(arr));
     }
 }
