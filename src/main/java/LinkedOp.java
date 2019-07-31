@@ -229,6 +229,47 @@ public class LinkedOp {
     }
 
     /**
+     * 约瑟夫问题，从0-m-1
+     * 当两个均为0时，返回值-1
+     * @param n
+     * @param m
+     * @return
+     */
+    public int  yueSeFu(int n,int m){
+        if(n==0&&m==0){
+            return -1;
+        }
+        ListNode node=new ListNode(0);
+        ListNode head=node;
+        for (int i=1;i<n;i++){
+            node.next=new ListNode(i);
+            node=node.next;
+        }
+        //形成一个环
+        node.next=head;
+        int count=1;
+
+
+        while (head.next!=head){
+            while ((m-count)!=1){
+                head=head.next;
+                count++;
+            }
+            System.out.println(head.next.val);
+            if (head.next!=null){
+                head.next=head.next.next;
+                head=head.next;
+                count=1;
+
+            }
+
+
+        }
+        return head.val;
+
+    }
+
+    /**
      * 确定链表是否有环
      * @param node
      * @return
