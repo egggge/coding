@@ -106,6 +106,42 @@ public class HauWei {
         return res[m][N];
 
     }
+    public void positionMove(){
+        Scanner sc=new Scanner(System.in);
+        while(sc.hasNext()){
+            int LR=0;
+            int UD=0;
+            String[] input=sc.nextLine().split(";");
+            for(String s:input){
+                int l=s.length();
+                if(l<=3){
+                    char c=s.charAt(0);
+                    String regex = "^[0-9]{1,2}$";
+                    if (s.substring(1,l).matches(regex)){
+                        int m=Integer.parseInt(s.substring(1,l));
+                        if(c=='A'){
+                            LR-=m;
+                        }else if(c=='D'){
+                            LR+=m;
+                        }else if(c=='W'){
+                            UD+=m;
+                        }else if(c=='S'){
+                            UD-=m;
+                        }
+
+                    }
+
+                }
+
+            }
+            StringBuffer result=new StringBuffer();
+            result.append(LR);
+            result.append(",");
+            result.append(UD);
+            System.out.println(result.toString());
+
+        }
+    }
     public static void main(String[] args){
 
         Scanner sc=new Scanner(System.in);
