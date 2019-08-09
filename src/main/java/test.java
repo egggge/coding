@@ -39,64 +39,86 @@ public class test {
         });
     }
 
-    public static void quickSort(int[] arr, int start, int len) {
-        if (arr != null && len != 0) {
-            int lo = start;
-            int hi = len;
-            int target = arr[start];
-            while (lo < hi) {
-                while (arr[hi] >= target && lo < hi) {
-                    hi--;
-                }
-                if (lo < hi && arr[hi] < target) {
-                    int temp = arr[hi];
-                    arr[hi] = target;
-                    arr[lo] = temp;
-                    lo++;
-                }
-                while (lo < hi && target >= arr[lo]) {
-                    lo++;
-                }
-                if (lo < hi && arr[lo] > target) {
-                    int temp = arr[lo];
-                    arr[lo] = target;
-                    arr[hi] = temp;
-                    hi--;
-                }
-            }
-            if ((lo - 1) > start) {
-                quickSort(arr, start, lo - 1);
-            }
-            if ((hi + 1) < len - 1) {
-                quickSort(arr, hi + 1, len);
-            }
 
+
+    public static String getItoR(String target, List<String> I){
+        StringBuffer result=new StringBuffer();
+        StringBuffer res=new StringBuffer();
+        int temp=0;
+        for (int s=0;s<I.size();s++){
+            if (I.get(s).contains(target)){
+                res.append(s);
+                res.append(" ");
+                res.append(I.get(s));
+                res.append(" ");
+                temp=temp+2;
+            }
         }
+        if (temp!=0){
+            result.append(target);
+            result.append(" ");
+            result.append(temp);
+            result.append(" ");
+            result.append(res.toString());
+            result.append(" ");
+        }
+
+        return result.toString();
+
+
     }
 
 
     public static void main(String[] args) {
-        TreeMap<Integer,Integer> map=new TreeMap<Integer, Integer>();
-        int i=10;
-        while (i>0){
-            map.put(i,i);
-            i--;
+        Scanner sc =new Scanner(System.in);
+        while (sc.hasNext()){
+            Set<Integer> R=new TreeSet<Integer>();
+            List<String> I=new ArrayList<String>();
+            String inputI=sc.nextLine();
+            String inputR=sc.nextLine();
+            int i=Integer.parseInt(inputI.split(" ")[0]);
+            int m=1;
+            while (m<=i){
+                I.add(String.valueOf(inputI.split(" ")[m]));
+                m++;
+            }
+            int j=Integer.parseInt(inputR.split(" ")[0]);
+            int n=1;
+            while (n<=j){
+                R.add(Integer.parseInt(inputR.split(" ")[n]));
+                n++;
+            }
+            int count=0;
+            StringBuffer buffer=new StringBuffer();
+            int postionR=0;
+            while(postionR<j){
+                if (!R.(postionR).equals(R.get(postionR+1))){
+                    String target=String.valueOf(R.get(postionR));
+                    if (getItoR(target,I).length()!=0){
+                        int temp=Integer.parseInt(getItoR(target,I).split(" ")[1]);
+                        buffer.append(getItoR(target,I));
+                        count+=temp+2;
+
+                    }
+                    postionR++;
+                }else {
+                    while (postionR<j-1&&R.get(postionR).equals(R.get(postionR+1))){
+                        postionR++;
+                    }
+                    String target=String.valueOf(R.get(postionR));
+                    if (getItoR(target,I).length()!=0){
+                        int temp=Integer.parseInt(getItoR(target,I).split(" ")[1]);
+                        buffer.append(getItoR(target,I));
+                        count+=temp+2;
+
+                    }
+                    postionR=postionR+1;
+
+                }
+            }
+            System.out.printf(count+" "+buffer.toString());
+
         }
-        for (Map.Entry<Integer,Integer> entry : map.entrySet()) {
-            System.out.println("key= " + entry.getKey() + " and value= " + entry.getValue());
-        }
-
-
-
-
-
-//        int[] arr={10,20,40,32,67,8,10,9};
-//        quickSort(arr,0,arr.length-1);
-//        for (int i:arr){
-//            System.out.println(i);
-//        }
-        //System.out.println(containWord("AGA5 TFG3L","A"));
-
 
     }
 }
