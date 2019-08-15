@@ -35,12 +35,18 @@ public class StringArrange {
 
     }
 
+    /**
+     *
+     * @param strArrs
+     * @param i
+     */
+
     public void permutateSequence(char[] strArrs,int i){
         char temp;
         if(strArrs==null||i>strArrs.length||i<0){
             return;
         }
-        //遍历完整个字符串，可以打印
+        //遍历完整个字符串,打印
         else if(i==strArrs.length){
             System.out.println(strArrs);
         }
@@ -56,15 +62,25 @@ public class StringArrange {
             }
         }
     }
+
+    /**
+     * 字符串的全排列
+     * 1.
+     * @param arrayA
+     * @param start
+     * @param end
+     */
     public void recursionArrange(char[] arrayA,int start,int end){
         if(end <= 1){
             return;
         }
         if(start == end){
+           StringBuffer s=new StringBuffer();
             for(int i = 0;i < arrayA.length;i++){
-                System.out.print(arrayA[i]);
+                //System.out.print(arrayA[i]);
+                s.append(arrayA[i]);
             }
-            System.out.println();
+            System.out.println(s.toString());
         }
         else{
             for(int i = start;i <= end;i++){
@@ -149,15 +165,15 @@ public class StringArrange {
 
     public static void main(String[] args) {
         StringArrange stringArrange = new StringArrange();
-        String A = "abc";
+        String A = "dacbb";
         String B = "abcd";
         char[] arrayA = A.toCharArray();
-        char[] arrayB = B.toCharArray();
-        int[] ints ={1,2,3};
-        //stringArrange.recursionArrange(arrayA,0,arrayA.length-1);
-        if (stringArrange.reorderedPowerOf2(46)){
-            System.out.println(1);
-        }
+//        char[] arrayB = B.toCharArray();
+//        int[] ints ={1,2,3};
+        stringArrange.recursionArrange(arrayA,0,arrayA.length-1);
+//        if (stringArrange.reorderedPowerOf2(46)){
+//            System.out.println(1);
+//        }
 
 
 
