@@ -10,22 +10,19 @@ public class ZhiShu {
      * 比如：33={3，11}
      * @param n
      */
-    public void getZhiShu(int n){
-            Scanner sc = new Scanner(System.in);
-            while(sc.hasNext()){
-                long input=sc.nextLong();
-                if(input==1){
-                    System.out.println(1);
-                }
-                int i;
-                for(i=2;i<input;i++){
-                    while(input%i==0){
-                        input/=i;
-                        System.out.printf(i+" ");
-                    }
-                }
-                System.out.printf(input+" ");
+    public static void getZhiShu(int input){
+        if(input==1){
+            System.out.println(1);
+        }
+        int i;
+        for(i=2;i<input;i++){
+            while(input%i==0){
+                input/=i;
+                System.out.printf(i+" ");
             }
+        }
+        System.out.printf(input+" ");
+
     }
 
     /**
@@ -70,8 +67,6 @@ public class ZhiShu {
     }
 
     public static void main(String[] args) {
-        if (isPrim(7)){
-            System.out.println(1);
-        }
+        getZhiShu(8);
     }
 }
