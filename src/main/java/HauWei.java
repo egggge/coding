@@ -6,6 +6,61 @@ import java.util.*;
  */
 public class HauWei {
     /**
+     * 4
+     * 2 5 6 13
+     * 找到最大的伴侣素数
+     * output:2
+     */
+    public static void compsnySu(){
+        //存奇数
+        ArrayList<Integer> evens = new ArrayList<Integer>();
+        ArrayList<Integer> odds = new ArrayList<Integer>();
+        int[] num={2,4,1,6,3,9};
+        for (int i = 0; i < 6; i++) {
+            if(num[i]%2!=0){
+                evens.add(num[i]);
+            }else {
+                odds.add(num[i]);
+            }
+
+        }
+        //最大的素数对也就是跟奇数的个数相等，因为素数一定是一个偶数加一个奇数
+        int result=0;
+        int matched[]=new int[evens.size()];
+        for(int i=0;i<odds.size();i++){
+            //为每个汉子建立一个妹子列表
+            int used []=new int[evens.size()];
+            if(find(odds.get(i),used,matched,evens)){
+                result++;
+            }
+        }
+        System.out.println(result);
+
+    }
+    private static boolean find(Integer integer, int[] used, int[] matched, ArrayList<Integer> evens) {
+        for(int j=0;j<evens.size();j++){
+            if(isPrim(integer, evens.get(j)) && used[j]==0){
+                used[j]=1;
+                if(matched[j]==0 || find(matched[j], used, matched, evens)){
+                    matched[j]=integer;
+                    return true;
+                }
+            }
+
+        }
+        return false;
+    }
+
+    public static boolean isPrim(int num1, int num2) {
+        int sum = num1 + num2;
+        for (int i = 2; i < sum; i++) {
+            if (sum % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+    /**
      * 键值对排序，学会用treemap(类)
      */
     public void pairNumSort(){
@@ -142,6 +197,53 @@ public class HauWei {
 
         }
     }
+
+    /**
+     * 任意交换字符串中两个字母的位置，找到此单词
+     * 1.将字符串化解为字符数组，循环遍历字典
+     * 2.当字符串有重复字母，其全排列有重复的。可以用tessset去重
+     */
+    public void findBroWord(){
+
+        Scanner in = new Scanner(System.in);
+        while(in.hasNext()){
+            //一个一个输入
+            int num = in.nextInt();
+            String[] s = new String[num];
+            int count = 0;
+            for(int i = 0;i<num;i++){
+                s[i] = in.next();
+            }
+            String key = in.next();
+            char[] keyChar = key.toCharArray();
+            Arrays.sort(keyChar);
+            int no = in.nextInt();//第几个
+            ArrayList<String> list = new ArrayList<String>();
+            //笔者思想就是遍历字典，避免生成字符串的全排列
+            for(int i = 0;i<num;i++){
+                int c = check(key,s[i],keyChar);
+                count += c;
+                if(c==1){
+                    list.add(s[i]);
+                    System.out.println(s[i]);
+
+                }
+
+            }
+            System.out.println(count);
+            Collections.sort(list);
+            if(count>=no)
+                System.out.println(list.get(no-1));
+        }
+    }
+    private static int check(String key,String word,char[] keyChar){
+        if(key.equals(word)||key.length()!=word.length())
+            return 0;
+        char[] wordChar = word.toCharArray();
+        Arrays.sort(wordChar);
+        return Arrays.equals(keyChar, wordChar)?1:0;
+    }
+
     public static void main(String[] args){
 
         Scanner sc=new Scanner(System.in);
