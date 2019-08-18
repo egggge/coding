@@ -26,7 +26,8 @@ public class PrintMinNumber {
             public int compare(Integer o1, Integer o2) {
                 String s1=o1+""+o2;
                 String s2=o2+""+o1;
-                //升序，代表原数组按照降序的排序
+                //使得大数字排在后面
+                //字符串也可以进行比较
                 System.out.println(s1+","+s2+","+s1.compareTo(s2));
                 return s1.compareTo(s2);
             }
