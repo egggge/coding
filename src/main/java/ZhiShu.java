@@ -7,25 +7,42 @@ import java.util.Scanner;
 public class ZhiShu {
     /**
      * 求整数N的质数，并按照从小到大输出
+     * 比如：33={3，11}
      * @param n
      */
-    public void getZhiShu(int n){
-            Scanner sc = new Scanner(System.in);
-            while(sc.hasNext()){
-                long input=sc.nextLong();
-                if(input==1){
-                    System.out.println(1);
-                }
-                int i=2;
-                for(i=2;i<input;i++){
-                    while(input%i==0){
-                        input/=i;
-                        System.out.printf(i+" ");
-                    }
-                }
-                System.out.printf(input+" ");
+    public static void getZhiShu(int input){
+        if(input==1){
+            System.out.println(1);
+        }
+        int i;
+        for(i=2;i<input;i++){
+            while(input%i==0){
+                input/=i;
+                System.out.printf(i+" ");
             }
+        }
+        System.out.printf(input+" ");
+
     }
+
+    /**
+     * 判断一个数是不是质数（素数）
+     * @param n
+     * @return
+     */
+    public static boolean isPrim(int n){
+        int count = n/2;
+        while (count > 1) {
+            if (n % count == 0 ) {
+                return false;
+            }
+            count--;
+        }
+
+        return true;
+    }
+
+
 
     /**
      * 四舍五入
@@ -47,5 +64,9 @@ public class ZhiShu {
 
 
         }
+    }
+
+    public static void main(String[] args) {
+        getZhiShu(8);
     }
 }
