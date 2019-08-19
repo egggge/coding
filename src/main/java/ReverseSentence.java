@@ -8,11 +8,11 @@ import java.util.List;
 public class ReverseSentence {
     /**
      * 翻转数字
-     * 考虑不要溢出
+     * 考虑溢出
      * @param x
      * @return
      */
-    public static int reverseII(int x) {
+    public  int reverseII(int x) {
         int result = 0;
         while (x != 0) {
             // x % 10 可以取到 x 最后一位的值，即此时 pop 是 x 的最后一位，也就是新值的第一位
@@ -23,8 +23,8 @@ public class ReverseSentence {
             // 由于后续运算 result = result * 10 + pop
             // 如果 result 的值大于 Integer.MAX_VALUE / 10 ，那么一定会溢出
             // 如果 result 的值等于 Integer.MAX_VALUE / 10，那么 pop 的值如果大于 Integer.MAX_VALUE % 10 也会溢出
-            // 相反的，result 的值小于 Integer.MIN_VALUE / 10 ，那么一定会溢出
-            // 如果 result 的值等于 Integer.MIN_VALUE / 10，那么 pop 的值如果小于于 Integer.MIN_VALUE % 10 也会溢出
+            // 相反的，result 的值小于 Integer.MIN_VALUE / 10 ，那么一定会溢出.因为后面至少还有一位
+            // 如果 result 的值等于 Integer.MIN_VALUE / 10，那么 pop 的值如果小于 Integer.MIN_VALUE % 10 也会溢出
 
             if (result > Integer.MAX_VALUE / 10 || (result == Integer.MAX_VALUE / 10 && pop > Integer.MAX_VALUE % 10)) {
                 result = 0;
@@ -40,7 +40,7 @@ public class ReverseSentence {
 
     /**
      * f翻转字符串
-     * 注意trim()去除空格的使用
+     * 注意trim()去除字符串首尾空格
      * @param str
      * @return
      */
@@ -101,7 +101,7 @@ public class ReverseSentence {
         ReverseSentence reverseSentence=new ReverseSentence();
         //reverseSentence.reverseSentence("I Love u.");
         //reverseSentence.leftRotateString("abcdefg",6);
-        reverseSentence.reverseSentence("i love u.");
+        System.out.println(reverseSentence.reverseII(123456));
     }
 
 }

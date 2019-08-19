@@ -419,7 +419,12 @@ public class LinkedOp {
     public static void main(String[] args) {
         LinkedOp op = new LinkedOp();
         int[] data1={1,9,3,8};
+        int[] data2={1,9,3,8};
         ListNode head1=op.arrayToListNode(data1);
+        ListNode head2=op.arrayToListNode(data2);
+        if (head1==head2){
+            System.out.println(1);
+        }
 
 
 
