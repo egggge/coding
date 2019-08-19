@@ -5,7 +5,7 @@ import java.util.*;
  * @Author: egg
  * @Date: 2019-04-21 11:03
  */
-public class BinaryTree<E extends Number> {
+public class  BinaryTree<E extends Number> {
     private boolean finished=false;
     class TreeNode<E> {
         private E data;
@@ -314,6 +314,45 @@ public class BinaryTree<E extends Number> {
             }
     }
 
+    public void zPrint(TreeNode node){
+        if (node==null){
+            return;
+        }
+        Stack<TreeNode<E>> stack1=new Stack<TreeNode<E>>();
+        Stack<TreeNode<E>> stack2=new Stack<TreeNode<E>>();
+        stack1.push(node);
+
+        while (!stack1.empty()||!stack2.empty()){
+            while (!stack1.empty()){
+                TreeNode<E> nodetemp = stack1.pop();
+                System.out.printf(nodetemp.getData()+" ");
+                if (nodetemp.getLchild()!=null){
+                    stack2.push(nodetemp.lchild);
+                }
+                if (nodetemp.getRchild()!=null){
+                    stack2.push(nodetemp.rchild);
+                }
+            }
+            System.out.println();
+            while (!stack2.empty()){
+                TreeNode<E> nodetemp = stack2.pop();
+                System.out.printf(nodetemp.getData()+" ");
+                if (nodetemp.getRchild()!=null){
+                    stack1.push(nodetemp.rchild);
+                }
+                if (nodetemp.getLchild()!=null){
+                    stack1.push(nodetemp.lchild);
+                }
+
+            }
+            System.out.println();
+
+
+        }
+
+
+    }
+
     /**
      * 在二叉树中找到值为m的路径
      * 先序遍历
@@ -457,7 +496,9 @@ public class BinaryTree<E extends Number> {
         if (startPre>endPre||startIn>endIn){
             return null;
         }
+        //首先确定根结点：前序的第一个节点
         TreeNode root=new TreeNode(pre[startPre]);
+        //开始遍历中序数组，确定根结点的位置，将中序分为两个部分
         for (int i=startIn;i<=endIn;i++){
             if (in[i]==pre[startPre]){
                 root.lchild=reBuild(pre,startPre+1,startPre+(i-startIn),in,startIn,i-1);
@@ -515,10 +556,10 @@ public class BinaryTree<E extends Number> {
         BinaryTree bt = new BinaryTree();
         Number[] array={0,1,2,3,4,5,6,7};
         BinaryTree.TreeNode root = bt.buildTree(array);
-        bt.nonRecLastOrder(root);
+        //bt.nonRecLastOrder(root);
 
         //bt.printLevel(root);
-       // bt.zPrint(root);
+       bt.zPrint(root);
 //       // bt.LNR(root);
 //        //bt.nonRecInOrder(root);
 //        //bt.levelOrder(root);
