@@ -6,19 +6,20 @@ import java.util.*;
  */
 public class MaxInWindow {
     /**
-     *
+     *利用优先队列来保存滑动窗口的值
      * @param nums
      * @param k
      * @return
      */
     public static int[] maxSlidingWindow(int[] nums,int k){
         if(nums == null || nums.length == 0) return new int[0];
-        //重写方法实现大顶堆
+        //重写方法实现大顶堆，降序
         PriorityQueue<Integer> pq = new PriorityQueue<Integer>(k,new Comparator<Integer>(){
                     public int compare(Integer o1, Integer o2) {
                         return o2-o1;
             }
         });
+        //结果的长度
         int[] res = new int[nums.length + 1 - k];
         for(int i = 0; i < nums.length; i++){
             // 把窗口最左边的数去掉
@@ -33,6 +34,7 @@ public class MaxInWindow {
 
     /**
      * 加入一个新数据：没到3个将最小的删除
+     * 双向链表存储的是数字的下标
      * @param nums
      * @param k
      * @return
@@ -46,8 +48,8 @@ public class MaxInWindow {
         //先设置结果数组的长度
         int[] res = new int[nums.length + 1 - k];
         for(int i = 0; i < nums.length; i++){
-            // 每当新数进来时，如果发现队列头部的数的下标与i的差值==k，扔掉
-            if(!deque.isEmpty() && deque.getFirst() == i - k)
+            // 每当新数进来时，如果发现队列头部的数的下标与i的差值==k，扔掉队头，为了避免前面的最大值一直占用位置
+            if(!deque.isEmpty() && deque.getFirst()== i - k)
             {
                 System.out.println("first:"+deque.getFirst());
                 deque.poll();
@@ -61,7 +63,7 @@ public class MaxInWindow {
             }
             //加入新数
             deque.addLast(i);
-            // i>=2,也就是已经加入3个数。队列头部就是该窗口内第一大的
+            // i>=2,也就是已经加入3个数。每加入一个数，那就会产生一个最大值，且最大值保持在队头
             if((i + 1) >= k)
             {
                 res[i + 1 - k] = nums[deque.peek()];
