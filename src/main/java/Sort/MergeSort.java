@@ -17,7 +17,7 @@ public class MergeSort {
      */
 
     public static void merge(int[] arr,int[] temp,int start,int t,int end){
-        //左边数组的开始和结束
+        //左数组的开始和结束
         int leftstatr=start;
         int leftend=t-1;
 
@@ -25,37 +25,38 @@ public class MergeSort {
         int num = end-start+1;
         //临时数组的开始
         int tempbegin=start;
+
         while (leftstatr<=leftend&&t<=end){
             if (arr[leftstatr]<=arr[t]){
+                //数组的++操作放在这里了
                 temp[tempbegin++]=arr[leftstatr++];
             }
             else {
                 temp[tempbegin++]=arr[t++];
-
             }
-
         }
 
+        //其中左数组合并完毕
         while (t<=end){
             temp[tempbegin++]=arr[t++];
 
         }
+
+        //右数组合并完毕
         while (leftstatr<=leftend){
             temp[tempbegin++]=arr[leftstatr++];
         }
-        //复制回原素组
 
+        //复制回原素组
         for (int q = 0; q <num; q++){
             arr[end]=temp[end];
             end--;
 
         }
-
-
     }
     public static void merge_sort(int[] arr,int[] temp,int start,int end){
         if (start<end){
-            //将数组分为两部分
+            //将数组分割，需要一个辅助数组
             int m=(start+end)/2;
             merge_sort(arr,temp,start,m);
             merge_sort(arr,temp,m+1,end);
