@@ -33,6 +33,7 @@ public class StringPathInMatrix {
         }
 
         int pathLength=0;
+        //行和列都从0开始
         for (int row=0;row<rows;row++){
             for (int col=0;col<cols;col++){
                 if (hasPathCore(matrix,rows,cols,row,col,str,pathLength,visited)){
@@ -44,9 +45,11 @@ public class StringPathInMatrix {
     }
 
     public boolean hasPathCore(char[] matrix,int rows,int cols,int row,int col,char[] str,int pathLength,boolean visited[]){
+        //这里就包含了边界的情况
         if (row < 0 || col < 0 || row >= rows || col >= cols || visited[row * cols + col] == true
                 || str[pathLength] != matrix[row * cols + col])
         {return false;}
+        //字符串对应完毕，函数结束
         if (pathLength==str.length-1){
             return true;
         }
