@@ -6,10 +6,19 @@ import java.util.List;
  * @Date: 2019-05-06 15:37
  */
 public class RbootAct {
+    /**
+     *
+     * @param threshold
+     * @param rows
+     * @param cols
+     * @return
+     */
     public int moveCount(int threshold,int rows,int cols){
+        //异常情况
         if (threshold<0||rows<=0||cols<=0){
             return 0;
         }
+        //矩阵不需要用二维数组表示
         boolean[] visited = new boolean[rows*cols];
         for (boolean v:visited){
             v=false;
