@@ -149,11 +149,6 @@ public class StringPathInMatrix {
             System.out.println("Test6 failed.");
     }
 
-    // AAAA
-    // AAAA
-    // AAAA
-
-    // AAAAAAAAAAAA
     public void test7() {
         char[] matrix = "AAAAAAAAAAAA".toCharArray();
         int rows = 3;
@@ -163,6 +158,43 @@ public class StringPathInMatrix {
             System.out.println("Test7 passed.");
         else
             System.out.println("Test7 failed.");
+    }
+    /**
+     * 从左下角开始寻找
+     * 递归
+     * @param arr
+     * @param rows
+     * @param cols
+     * @return
+     */
+    public static boolean findNum(int[] arr,int rows,int cols,int row,int col,int target){
+        if (col>=0&&row>=0&&col<cols&&row<rows){
+            if (target==arr[row*rows+col]){
+                return true;
+            }else if (target>arr[row*rows+col]){
+                return findNum(arr,rows,cols,row,col+1,target);
+            }else if (target<arr[row*rows+col]){
+                return findNum(arr,rows,cols,row-1,col,target);
+            }
+        }
+        return false;
+    }
+    public static boolean findNum2(int[] arr,int rows,int cols,int target){
+        if (arr.length!=0&&rows>0&&cols>0){
+            int row=0;
+            int col=cols-1;
+            while (row<rows&&col>=0){
+                if (arr[row*rows+col]==target){
+                    return true;
+                }else if (arr[row*rows+col]<target){
+                    col--;
+                }else {
+                    row++;
+                }
+            }
+        }
+        return false;
+
     }
 
     public static void main(String[] args) {

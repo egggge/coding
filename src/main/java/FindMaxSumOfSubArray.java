@@ -4,47 +4,29 @@
  */
 public class FindMaxSumOfSubArray {
     /**
-     * 1.如果全是负数
-     * @param data
+     * 连续子数组的最大和
+     * @param arr
      * @return
      */
-    public int findMaxSum(int[] data){
-        if (data==null){
-            System.out.println("数组为空");
-            return 0;
-        }
-        int temp=0;
-        int res=data[0];
-        int secend=0;
-        for (int i:data){
-            //和小于本身
-            if (temp+i<i){
-                temp=i;
-                if (temp>res){
-                    res=temp;
-                }
+    public static int maxSumOfSubArray(int[] arr){
+        if (arr.length!=0){
+            int max=arr[0];
+            int temp=arr[0];
+            for (int i=1;i<arr.length;i++){
+                temp=arr[i]>temp+arr[i]?arr[i]:temp+arr[i];
+                max=max>temp?max:temp;
             }
-            else {
-                if (i<0){
-                    //添加了一个负数，先保留上一次结果，再加
-                    secend=temp;
-                    temp+=i;
-                }
-                if (i>=0){
-                    temp+=i;
-                    if (temp>secend){ res=temp; }
-                    else { res=secend; }
-                }
-            }
+            return max;
         }
-        return res;
+        return Integer.MIN_VALUE;
+
     }
 
 
+
     public static void main(String[] args) {
-        int[] data={1,-2,3,10,-4,7,2,-5};
-        FindMaxSumOfSubArray findMaxSumOfSubArray = new FindMaxSumOfSubArray();
-        System.out.println(findMaxSumOfSubArray.findMaxSum(data));
+        int[] data={-1,-2,-3,10,-4,-7,-2,5};
+        System.out.println(maxSumOfSubArray(data));
     }
 
 }
