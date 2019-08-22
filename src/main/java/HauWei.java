@@ -244,6 +244,41 @@ public class HauWei {
         return Arrays.equals(keyChar, wordChar)?1:0;
     }
 
+    /**
+     * 注意16进制的转换
+     */
+    public void covert(){
+        Scanner sc=new Scanner(System.in);
+        while (sc.hasNext()){
+            StringBuffer res=new StringBuffer();
+            StringBuffer result=new StringBuffer();
+            String[] s=sc.nextLine().split(" ");
+            int n= Integer.parseInt(s[0]);
+            int count=0;
+            for (int i=1;i<=n;i++){
+                //System.out.println(s[i]);
+                if (s[i].equals("A")){
+                    res.append("12"+" "+"34"+" ");
+                    count+=2;
+                }else if (s[i].equals("B")){
+                    res.append("AB"+" "+"CD"+" ");
+                    count+=2;
+                }else {
+                    res.append(s[i]+" ");
+                    count++;
+                }
+                //System.out.println(count);
+
+            }
+            //System.out.println(count);
+            String t=Integer.toHexString(count).toUpperCase();
+            result.append(t+" ");
+            result.append(res.toString());
+            System.out.println(result.toString().trim());
+
+        }
+    }
+
     public static void main(String[] args){
 
         Scanner sc=new Scanner(System.in);

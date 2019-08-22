@@ -314,6 +314,11 @@ public class  BinaryTree<E extends Number> {
             }
     }
 
+    /**
+     * z字型分层打印二叉树
+     * @param node
+     */
+
     public void zPrint(TreeNode node){
         if (node==null){
             return;
@@ -386,7 +391,14 @@ public class  BinaryTree<E extends Number> {
         }
     }
 
+    /**
+     * 将二叉搜索树变为有序的双向链表
+     * @param root
+     * @return
+     */
+
     public TreeNode<E> convert(TreeNode<E> root){
+        //之乡双链表的尾节点
         TreeNode<E> pLastNodeList = null;
         convertNode(root,pLastNodeList);
 
@@ -415,6 +427,7 @@ public class  BinaryTree<E extends Number> {
         if (pLastNodeInList!=null){
             pLastNodeInList.rchild=pCurrent;
         }
+        //双链表尾节点是空，则把当前节点置为尾节点
         pLastNodeInList=pCurrent;
         if (pCurrent.rchild!=null){
             convertNode(pCurrent.rchild,pLastNodeInList);
@@ -549,23 +562,46 @@ public class  BinaryTree<E extends Number> {
         return false;
     }
 
+    /**
+     * 找到二叉搜索树的第k大值
+     * 中序遍历
+     */
+    int k;
+    public void findKNum(TreeNode<E> root,int k){
+        if (root==null){return;}
+        this.k=k;
+        System.out.println(findKCore(root).getData());
+
+    }
+    public TreeNode<E> findKCore(TreeNode<E> root){
+        TreeNode<E> target=null;
+        //一直遍历左子树直到完结
+        if (root.lchild!=null){target=findKCore(root.lchild);}
+        if (target==null){
+            if (this.k==1){
+                target=root;
+            }
+            this.k--;
+        }
+        //左子树遍历完毕
+        if (root.rchild!=null&&target==null){target=findKCore(root.rchild);}
+        return target;
+
+
+
+    }
+
+
 
 
     public static void main(String[] args){
 
         BinaryTree bt = new BinaryTree();
-        Number[] array={0,1,2,3,4,5,6,7};
+        Number[] array={10,6,14,4,8,12,16};
         BinaryTree.TreeNode root = bt.buildTree(array);
-        //bt.nonRecLastOrder(root);
+        bt.findKNum(root,3);
 
-        //bt.printLevel(root);
-       bt.zPrint(root);
-//       // bt.LNR(root);
-//        //bt.nonRecInOrder(root);
-//        //bt.levelOrder(root);
-//        //bt.findPath(root,22);
-//        bt.convert(root);
-//
+
     }
 
 

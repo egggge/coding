@@ -71,13 +71,13 @@ public class StringArrange {
      * @param end
      */
     public void recursionArrange(char[] arrayA,int start,int end){
-        if(end <= 1){
+        if(end < 1){
             return;
         }
+        //这个递归没有返回值，直接打印，
         if(start == end){
            StringBuffer s=new StringBuffer();
             for(int i = 0;i < arrayA.length;i++){
-                //System.out.print(arrayA[i]);
                 s.append(arrayA[i]);
             }
             System.out.println(s.toString());
@@ -165,7 +165,7 @@ public class StringArrange {
 
     public static void main(String[] args) {
         StringArrange stringArrange = new StringArrange();
-        String A = "dacbb";
+        String A = "dac";
         String B = "abcd";
         char[] arrayA = A.toCharArray();
 //        char[] arrayB = B.toCharArray();
