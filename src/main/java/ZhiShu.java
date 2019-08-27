@@ -66,6 +66,17 @@ public class ZhiShu {
         }
     }
 
+    /**
+     * 求最大公约数
+     * @param i
+     * @param j
+     * @return
+     */
+
+    public static int maxItem(int i, int j) {
+        return j==0?i:maxItem(j,i%j);
+    }
+
     public static void main(String[] args) {
         getZhiShu(8);
     }
