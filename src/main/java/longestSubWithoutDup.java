@@ -5,6 +5,39 @@ import java.util.HashMap;
  * @date 2019/5/29 20:22
  */
 public class longestSubWithoutDup {
+    /**
+     * 这里面包含了大写，小写，数字，其他字符
+     * @param s
+     * @return
+     */
+    public static int lengthOfLongestSubstring(String s) {
+        if (s==null){
+            return 0;
+        }
+        //int[] position=new int[26];
+        HashMap<Character,Integer> position=new HashMap<Character, Integer>();
+        char[] arr=s.toCharArray();
+        int max=0;
+        int cur=0;
+        for (int i=0;i<arr.length;i++){
+            //这个字符出现过
+            if (position.containsKey(arr[i])){
+                int d=i-position.get(arr[i]);
+                if (d<=cur){
+                    cur=d;
+                }else {
+                    cur++;
+                }
+            }else {
+                cur++;
+            }
+            position.put(arr[i],i);
+            max=Math.max(max,cur);
+        }
+
+        return max;
+
+    }
     public int longest(String s){
         char[] chars=s.toCharArray();
         int curLength=0;
@@ -39,10 +72,39 @@ public class longestSubWithoutDup {
         return maxLength;
     }
 
+    /**
+     * 最长回文子串
+     * @param s
+     * @return
+     */
+    public String longestPalindrome(String s) {
+        if (s.length()==0){
+            return s;
+        }
+        int len=s.length();
+        int left=0;
+        int right=0;
+        boolean[][] dp=new boolean[len][len];
+        for (int i=len-2;i>=0;i--){
+            dp[i][i]=true;
+            for (int j=i+1;j<len;j++){
+                if (s.charAt(i)==s.charAt(j)&&(j-i<3||dp[i+1][j-1])){
+                    dp[i][j]=true;
+                    if ((j-i)>(right-left)){
+                        left=i;
+                        right=j;
+                    }
+                }
+            }
+        }
+        return s.substring(left,right+1);
+
+    }
+
     public static void main(String[] args) {
         String s="cabcacfr";
         longestSubWithoutDup test = new longestSubWithoutDup();
-        System.out.println(test.longest(s));
+        System.out.println(test.longestPalindrome(s));
         System.out.println('c'-'a');
     }
 }
