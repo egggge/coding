@@ -101,11 +101,11 @@ class MyThread implements Runnable{
         this.list=list;
         this.countDownLatch=countDownLatch;
     }
-//    public MyThread(Counter counter, CountDownLatch countDownLatch)
-//    {
-//        this.counter = counter;
-//        this.countDownLatch = countDownLatch;
-//    }
+    public MyThread(Counter counter, CountDownLatch countDownLatch)
+    {
+        this.counter = counter;
+        this.countDownLatch = countDownLatch;
+    }
 //    public void run()
 //    {
 //        // 每个线程向Counter中进行10000次累加
