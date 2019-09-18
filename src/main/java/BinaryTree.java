@@ -108,7 +108,7 @@ public class  BinaryTree<E extends Number> {
      * @return
      */
 
-    public int getHigh(TreeNode<E> node){
+    public int getHigh(TreeNode<E> root){
         if (root==null){
             return 0;
         }
@@ -120,6 +120,20 @@ public class  BinaryTree<E extends Number> {
         int rDepth=getHigh(root.rchild);
         return 1+Math.max(lDepth,rDepth);
 
+    }
+    /**
+     *
+     */
+    public int getMinHigh(TreeNode<E> root){
+        if (root==null){
+            return 0;
+        }else if (root.rchild==null&&root.lchild==null){
+            return 1;
+
+        }
+        int r=getHigh(root.rchild);
+        int l=getHigh(root.lchild);
+        return 1+Math.min(l,r);
 
 
     }
@@ -716,9 +730,9 @@ public class  BinaryTree<E extends Number> {
     public static void main(String[] args){
 
         BinaryTree bt = new BinaryTree();
-        Number[] array={10,6,14,4,8,12,16,7};
+        Number[] array={10,6,14,4,8};
         BinaryTree.TreeNode root = bt.buildTree(array);
-        bt.getNodes(root);
+        System.out.println(bt.getMinHigh(root));
 
     }
 
