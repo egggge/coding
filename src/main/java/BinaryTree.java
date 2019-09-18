@@ -129,13 +129,41 @@ public class  BinaryTree<E extends Number> {
      * @return
      */
 
-    public int getNodes(TreeNode<E> node){
+    public int getNodesI(TreeNode<E> node){
         if (node==null){
             return 0;
         }
         else {
-            return 1+getNodes(node.getLchild())+getNodes(node.getRchild());
+            return 1+getNodesI(node.getLchild())+getNodesI(node.getRchild());
         }
+
+    }
+
+    /**
+     * f非递归求解二叉树的节点数
+     * @param root
+     */
+    public  void getNodes(TreeNode root){
+        if (root==null){
+            System.out.println(0);
+
+        }
+        Stack<TreeNode<E>> stack=new Stack<>();
+        stack.push(root);
+        int count=0;
+        while (!stack.empty()){
+            count+=1;
+            TreeNode<E> temp=stack.pop();
+            if (temp.rchild!=null){
+                stack.push(temp.rchild);
+            }
+            if (temp.lchild!=null){
+                stack.push(temp.lchild);
+            }
+
+        }
+        System.out.println(count);
+
 
     }
 
@@ -684,12 +712,13 @@ public class  BinaryTree<E extends Number> {
 
 
 
+
     public static void main(String[] args){
 
         BinaryTree bt = new BinaryTree();
         Number[] array={10,6,14,4,8,12,16,7};
         BinaryTree.TreeNode root = bt.buildTree(array);
-
+        bt.getNodes(root);
 
     }
 
