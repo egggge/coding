@@ -24,13 +24,13 @@ public class FullPermutation {
         if(candidate.isEmpty())
         {
             System.out.println(prefix);
+            n++;
 
 
         }else {
             for(int i=0;i<candidate.size();i++)
             {
                 //转换成linkList,移除一个对象是在不影响原来队列的基础上的
-
                 List temp=new LinkedList(candidate);
                 //用于保存排列组合生成的结果
                 String s1=prefix+temp.remove(i);
@@ -39,9 +39,7 @@ public class FullPermutation {
                 listAll(temp,s1);
             }
 
-
         }
-
 
     }
     public int getN() {
