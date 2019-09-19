@@ -84,7 +84,9 @@ public class longestSubWithoutDup {
         int len=s.length();
         int left=0;
         int right=0;
+        //布尔矩阵初始化默认为false
         boolean[][] dp=new boolean[len][len];
+        //从倒数第二个开始
         for (int i=len-2;i>=0;i--){
             dp[i][i]=true;
             for (int j=i+1;j<len;j++){
