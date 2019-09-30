@@ -5,35 +5,45 @@
 public class CompletenessCode {
     /**
      * 正则表达式匹配
+     * *表示的是它前面的夫出现任意次（包括0）
      * @param input
      * @param pattern
      * @return
      */
-    public static boolean match(String input,String pattern){
+    public static boolean isMatch(String input,String pattern){
         if(input==null||pattern==null) {
             return false;
         }
         return matchCore(input,0,pattern,0);
     }
     private static boolean matchCore(String input,int i,String pattern,int p){
-        if((input.length()==i)&&(pattern.length()==p)){
+        if((input.length()<=i)&&(pattern.length()<=p)){
             //出口1，input和pattern都到了字符串末尾
             return true;
         }
-        if((i!=input.length())&&(pattern.length()==p)){
-            //出口2，字符串input没有到末尾，pattern到了末尾
+        if((input.length()>=i+1)&&(pattern.length()<=p)){
+            //出口2，字符串input没到到末尾，pattern到末尾
             return false;
         }
-        if((input.length()==i)&&(pattern.length()!=p)){
-            //出口3，字符串input到末尾，pattern还没有到末尾
-            return false;
+
+        if((input.length()<=i)&&(pattern.length()>=p+1)){
+            return true;
         }
+
+
+//        if (p+1==pattern.length()){
+//            if (input.charAt(i)==pattern.charAt(p)||pattern.charAt(p)=='.'){
+//                return matchCore(input,i+1,pattern,p+1);
+//            }else {
+//                return false;
+//            }
+//        }
         //pattern第二个字符为*
-        if((p+1<pattern.length())&&(pattern.charAt(p+1)=='*')){
+        if(p+2<=pattern.length()&&(pattern.charAt(p+1)=='*')){
 
             //首字母相匹配
 
-            if((input.charAt(i)==pattern.charAt(p))||(pattern.charAt(p)=='.')){
+            if((input.charAt(i)==pattern.charAt(p))){
 
                 //*表示出现1次
                 return matchCore(input,i+1,pattern,p+2)
@@ -41,7 +51,14 @@ public class CompletenessCode {
                         ||matchCore(input,i+1,pattern,p)
                         //*表示出现0次
                         ||matchCore(input,i,pattern,p+2);
-            }else{
+            }else if ((pattern.charAt(p)=='.')){
+                return matchCore(input,i+1,pattern,p+2)
+                        //*表示出现多次
+                        ||matchCore(input,i+1,pattern,p+1)
+                        //*表示出现0次
+                        ||matchCore(input,i,pattern,p+2);
+            }
+            else{
                 //首字母不匹配
                 return matchCore(input,i,pattern,p+2);
             }
@@ -204,13 +221,10 @@ public class CompletenessCode {
 
 
     public static void main(String[] args){
-//        long startTime = System.currentTimeMillis();
-//        System.out.println(power(2.0,7));
-//        long endTime = System.currentTimeMillis();
-//        System.out.println("程序运行时间：" + (endTime - startTime) + "ms");
-//        int num = '0'-'6';
-//        System.out.println(num);
-        printToMaxOfDigits(2);
+        if (isMatch("aa","a*")){
+            System.out.println(1);
+        }
+
 
     }
 }
