@@ -84,7 +84,9 @@ public class longestSubWithoutDup {
         int len=s.length();
         int left=0;
         int right=0;
+        //布尔矩阵初始化默认为false
         boolean[][] dp=new boolean[len][len];
+        //从倒数第二个开始
         for (int i=len-2;i>=0;i--){
             dp[i][i]=true;
             for (int j=i+1;j<len;j++){
@@ -100,6 +102,34 @@ public class longestSubWithoutDup {
         return s.substring(left,right+1);
 
     }
+    public static int lengthOfLongestSubstringII(String s) {
+        int l=s.length();
+        if (l==0){return 0;}
+        char[] chars=s.toCharArray();
+        HashMap<Character,Integer> hashMap=new HashMap<>();
+        int res=0,temp=0;
+        for (int i=0;i<chars.length;i++){
+            char c=chars[i];
+            if (!hashMap.containsKey(c)){
+                temp++;
+            }else {
+                int index=hashMap.get(c);
+                if ((i-index)>temp){
+                    temp++;
+                }else if ((i-index)<=temp){
+                    temp=i-index;
+                }
+
+            }
+            res=Math.max(temp,res);
+            hashMap.put(c,i);
+
+
+        }
+        return res;
+
+    }
+
 
     public static void main(String[] args) {
         String s="cabcacfr";

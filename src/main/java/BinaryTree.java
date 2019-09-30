@@ -108,15 +108,34 @@ public class  BinaryTree<E extends Number> {
      * @return
      */
 
-    public int getHigh(TreeNode<E> node){
-        if (node==null){
+    public int getHigh(TreeNode<E> root){
+        if (root==null){
             return 0;
         }
-        else {
-            int i = getHigh(node.getLchild());
-            int j = getHigh(node.getRchild());
-            return (i<j)?(j+1):(i+1);
+        if (root.lchild==null&&root.rchild==null){
+            return 1;
         }
+
+        int lDepth=getHigh(root.lchild);
+        int rDepth=getHigh(root.rchild);
+        return 1+Math.max(lDepth,rDepth);
+
+    }
+    /**
+     *
+     */
+    public int getMinHigh(TreeNode<E> root){
+        if (root==null){
+            return 0;
+        }else if (root.rchild==null&&root.lchild==null){
+            return 1;
+
+        }
+        int r=getHigh(root.rchild);
+        int l=getHigh(root.lchild);
+        return 1+Math.min(l,r);
+
+
     }
     /**
      * 递归求解树的节点数
@@ -124,13 +143,41 @@ public class  BinaryTree<E extends Number> {
      * @return
      */
 
-    public int getNodes(TreeNode<E> node){
+    public int getNodesI(TreeNode<E> node){
         if (node==null){
             return 0;
         }
         else {
-            return 1+getNodes(node.getLchild())+getNodes(node.getRchild());
+            return 1+getNodesI(node.getLchild())+getNodesI(node.getRchild());
         }
+
+    }
+
+    /**
+     * f非递归求解二叉树的节点数
+     * @param root
+     */
+    public  void getNodes(TreeNode root){
+        if (root==null){
+            System.out.println(0);
+
+        }
+        Stack<TreeNode<E>> stack=new Stack<>();
+        stack.push(root);
+        int count=0;
+        while (!stack.empty()){
+            count+=1;
+            TreeNode<E> temp=stack.pop();
+            if (temp.rchild!=null){
+                stack.push(temp.rchild);
+            }
+            if (temp.lchild!=null){
+                stack.push(temp.lchild);
+            }
+
+        }
+        System.out.println(count);
+
 
     }
 
@@ -591,16 +638,101 @@ public class  BinaryTree<E extends Number> {
 
     }
 
+    /**
+     * 找到二叉树中最小和最大节点之间的距离
+     * @param root
+     * @return
+     */
+    public int getDis(TreeNode<E> root) {
+        // write code here
+        if(root == null||(root.lchild== null&&root.rchild == null))
+            return 0;
+        TreeNode[] tn=new TreeNode[2];
+        int[] max={Integer.MIN_VALUE};
+        int[] min={Integer.MAX_VALUE};
+        findNode(root,tn,max,min);
+        TreeNode maxNode=tn[0];
+        TreeNode minNode=tn[1];
+        if(maxNode == minNode){
+            return 0;
+        }
+        TreeNode lca=LCA(root,maxNode,minNode);
+        int[] count=new int[1];
+        distance(lca,maxNode,0,count);
+        int maxpath=count[0];
+        distance(lca,minNode,0,count);
+        int minpath=count[0];
+        return maxpath+minpath;
+    }
+
+    //找到最大最小叶节点
+    public void findNode(TreeNode<E> root,TreeNode[] tn,int[] max,int[] min)
+    {
+        if(root == null){
+            return;
+        }
+        if(root.lchild == null&&root.rchild == null){
+            if(root.data.intValue()> max[0]){
+                tn[0]=root;
+                max[0]=root.getData().intValue();
+            }
+            if(root.data.intValue() < min[0]){
+                tn[1]=root;
+                min[0]=root.data.intValue();
+            }
+            return;
+        }
+        findNode(root.lchild,tn,max,min);
+        findNode(root.rchild,tn,max,min);
+    }
+    //找到这两个点的LCA
+    public TreeNode LCA(TreeNode root,TreeNode max,TreeNode min){
+        if(root == null||root == max||root == min){
+            return root;
+        }
+        TreeNode left=LCA(root.lchild,max,min);
+        TreeNode right=LCA(root.rchild,max,min);
+        if(left!=null&&right!=null){
+            return root;
+        }
+        ///如果在左子树中没有找到，则断定两个节点都在右子树中，可以返回右子树中查询结果；否则，需要结合左右子树查询结果共同断定
+        if(left==null){
+            return right;
+        }
+        if(right==null){
+            return left;
+        }
+        return null;
+    }
+    //分别找到lca和两个点的距离
+    public boolean distance(TreeNode root,TreeNode node,int cur,int[] count){
+        if(root == null||node == null){
+            return false;
+        }
+        if(root == node){
+            count[0]=cur;
+            return true;
+        }
+        cur++;
+        boolean flag=distance(root.lchild,node,cur,count);
+        if(flag == false){
+            flag=distance(root.rchild,node,cur,count);
+        }
+        return flag;
+    }
+
+
+
+
 
 
 
     public static void main(String[] args){
 
         BinaryTree bt = new BinaryTree();
-        Number[] array={10,6,14,4,8,12,16};
+        Number[] array={10,6,14,4,8};
         BinaryTree.TreeNode root = bt.buildTree(array);
-        bt.findKNum(root,3);
-
+        System.out.println(bt.getMinHigh(root));
 
     }
 
